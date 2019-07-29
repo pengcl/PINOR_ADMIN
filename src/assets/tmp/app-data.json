@@ -1,0 +1,39 @@
+{
+  "app": {
+    "name": "广州市公安局特行场所图像智能应用平台",
+    "description": "Ng-zorro admin panel front-end framework"
+  },
+  "user": {
+    "name": "Admin",
+    "avatar": "./assets/tmp/img/avatar.jpg",
+    "email": "cipchk@qq.com"
+  },
+  "menu": [
+    {
+      "text": "主导航",
+      "i18n": "menu.main",
+      "group": true,
+      "hideInBreadcrumb": true,
+      "children": [
+        {
+          "text": "仪表盘",
+          "i18n": "menu.dashboard",
+          "icon": "anticon anticon-dashboard",
+          "link": "/dashboard"
+        },
+        {
+          "text": "栏目",
+          "i18n": "栏目",
+          "icon": "anticon anticon-rocket",
+          "link": "/catalog/list"
+        },
+        {
+          "text": "文档",
+          "i18n": "文档",
+          "icon": "anticon anticon-rocket",
+          "link": "/article/list"
+        }
+      ]
+    }
+  ]
+}

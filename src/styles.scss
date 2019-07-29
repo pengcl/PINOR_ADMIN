@@ -1,0 +1,43 @@
+.catalog-tree {
+
+  .ant-tree {
+    display: table;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+
+    li {
+      padding: 0;
+    }
+  }
+
+  .ant-tree-switcher {
+    height: 100% !important;
+    padding: 0 16px;
+  }
+
+  .custom-node {
+    width: 100%;
+    line-height: 24px;
+    cursor: pointer;
+  }
+
+  .active {
+    color: #fff;
+    background: #1890ff;
+  }
+
+  .catalog-tree-tr {
+    display: flex;
+    width: 100%;
+
+    .catalog-tree-td {
+      flex: 1;
+      padding: 16px;
+      line-height: 1.5;
+      border-bottom: 1px solid #e8e8e8;
+    }
+  }
+}
+

@@ -1,0 +1,24 @@
+<ul
+  role="tree"
+  unselectable="on"
+  [ngClass]="classMap">
+  <ng-container *ngFor="let node of nzNodes">
+    <tree-node
+      [nzTreeNode]="node"
+      [nzSelectMode]="nzSelectMode"
+      [nzShowLine]="nzShowLine"
+      [nzExpandedIcon]="nzExpandedIcon"
+      [nzDraggable]="nzDraggable"
+      [nzCheckable]="nzCheckable"
+      [nzShowExpand]="nzShowExpand"
+      [nzAsyncData]="nzAsyncData"
+      [nzSearchValue]="nzSearchValue"
+      [nzHideUnMatched]="nzHideUnMatched"
+      [nzBeforeDrop]="nzBeforeDrop"
+      [nzExpandAll]="nzExpandAll"
+      [nzShowIcon]="nzShowIcon"
+      [nzTreeTemplate]="nzTreeTemplate"
+      [nzNoAnimation]="noAnimation?.nzNoAnimation">
+    </tree-node>
+  </ng-container>
+</ul>

@@ -1,0 +1,55 @@
+<ng-template #sideTpl>
+  <nz-sider
+    [nzTrigger]="null"
+    [nzCollapsible]="true"
+    [nzCollapsed]="isMobile ? false : admin.collapsed"
+    [nzWidth]="admin.width"
+    [nzCollapsedWidth]="admin.widthInCollapsed"
+    class="alain-pro__sider"
+    [ngClass]="{ 'alain-pro__sider-fixed': admin.fixSiderbar }"
+  >
+    <layout-admin-logo class="alain-pro__sider-logo"></layout-admin-logo>
+    <div class="alain-pro__side-nav" style="padding: 16px 0; width: 100%;">
+      <div class="alain-pro__side-nav-wrap" layout-admin-menu></div>
+    </div>
+  </nz-sider>
+</ng-template>
+<div class="ant-layout ant-layout-has-sider">
+  <ng-container *ngIf="admin.menu === 'side' || isMobile">
+    <nz-drawer
+      *ngIf="isMobile"
+      [nzWidth]="admin.width"
+      nzWrapClassName="alain-pro__drawer"
+      [nzVisible]="!admin.collapsed"
+      [nzClosable]="false"
+      nzPlacement="left"
+      (nzOnClose)="admin.setCollapsed(true)"
+    >
+      <ng-template [ngTemplateOutlet]="sideTpl"></ng-template>
+    </nz-drawer>
+    <ng-container *ngIf="!isMobile">
+      <ng-template [ngTemplateOutlet]="sideTpl"></ng-template>
+    </ng-container>
+  </ng-container>
+  <div class="ant-layout" style="min-height: 100vh;" [ngStyle]="getLayoutStyle">
+    <layout-admin-header></layout-admin-header>
+    <!--
+      NOTICE: Route reuse strategy tag placeholder, please refer to: https://ng-alain.com/components/reuse-tab
+      - Not supported top header fixed mode
+      ```html
+      <reuse-tab></reuse-tab>
+      ```
+    -->
+    <div class="ant-layout-content alain-pro__body" [ngStyle]="getContentStyle">
+      <div *ngIf="isFetching" style="padding-top: 100px; text-align: center;">
+        <nz-spin nzSpinning></nz-spin>
+      </div>
+      <ng-container *ngIf="!isFetching">
+        <router-outlet></router-outlet>
+      </ng-container>
+    </div>
+    <layout-admin-footer class="ant-layout-footer alain-pro__footer"></layout-admin-footer>
+  </div>
+</div>
+<ng-template #settingHost></ng-template>
+<quick-chat></quick-chat>

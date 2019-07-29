@@ -1,0 +1,106 @@
+<page-header-wrapper [title]="'栏目管理'">
+  <nz-card [nzBordered]="false" class>
+    <button routerLink="/catalog/edit/0" nz-button [nzType]="'primary'">
+      <i nz-icon type="plus"></i>
+      <span>新建</span>
+    </button>
+    <div class="my-md">
+      <nz-alert [nzType]="'info'" [nzShowIcon]="true" [nzMessage]="message">
+        <ng-template #message>
+          已选择
+          <strong class="text-primary">{{numberOfChecked}}</strong>
+          项
+        </ng-template>
+      </nz-alert>
+    </div>
+
+    <nz-tree
+      class="catalog-tree"
+      [nzData]="data"
+      (nzClick)="activeNode($event)"
+      (nzDblClick)="openFolder($event)"
+      [nzTreeTemplate]="nzTreeTemplate"></nz-tree>
+    <ng-template #nzTreeTemplate let-node>
+      <div class="custom-node" [class.active]="activedNode?.key === node.key">
+        <div *ngIf="!node.isLeaf" class="catalog-tree-tr">
+          <span class="folder-icon catalog-tree-td"><i nz-icon [nzType]="node.isExpanded ? 'folder-open' : 'folder'" (click)="openFolder(node)"></i></span>
+          <span class="folder-id catalog-tree-td">{{ node.origin.id }}</span>
+          <span class="folder-name catalog-tree-td">{{ node.origin.name }}</span>
+          <span class="folder-created-at catalog-tree-td">{{ node.origin.createdAt }}</span>
+          <span class="folder-action catalog-tree-td">
+            <a [routerLink]="'/article/list'" [queryParams]="{'cid':node.origin.id}">文档</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a [routerLink]="['/catalog/edit/0']" [queryParams]="{'cid':node.origin.id}">子栏目</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a [routerLink]="['/catalog/edit', node.origin.id]">编辑</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a (click)="del(node.id)">删除</a>
+          </span>
+        </div>
+        <div *ngIf="node.isLeaf" class="catalog-tree-tr">
+          <span class="file-icon catalog-tree-td"><i nz-icon nzType="file"></i></span>
+          <span class="file-id catalog-tree-td">{{ node.origin.id }}</span>
+          <span class="file-name catalog-tree-td">{{ node.origin.name }}</span>
+          <span class="file-created-at catalog-tree-td">{{ node.origin.createdAt }}</span>
+          <span class="file-action catalog-tree-td">
+            <a [routerLink]="'/article/list'" [queryParams]="{'cid':node.origin.id}">文档</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a [routerLink]="['/catalog/edit/0']" [queryParams]="{'cid':node.origin.id}">子栏目</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a [routerLink]="['/catalog/edit', node.origin.id]">编辑</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a (click)="del(node.id)">删除</a>
+          </span>
+        </div>
+      </div>
+    </ng-template>
+
+    <!--    <nz-table #nzTable [nzData]="list">-->
+    <!--      <thead>-->
+    <!--      <tr>-->
+    <!--        <th nzShowExpand></th>-->
+    <!--        <th>ID</th>-->
+    <!--        <th>名称</th>-->
+    <!--        <th>创建时间</th>-->
+    <!--        <th class="text-right">操作</th>-->
+    <!--      </tr>-->
+    <!--      </thead>-->
+    <!--      <tbody>-->
+    <!--      <ng-template ngFor let-data [ngForOf]="list">-->
+    <!--        <tr>-->
+    <!--          <td [nzShowExpand]="data.catalogs?.length > 0" [(nzExpand)]="data.expand"></td>-->
+    <!--          <td>{{data.id}}</td>-->
+    <!--          <td>{{data.name}}</td>-->
+    <!--          <td>{{data.createdAt | _date}}</td>-->
+    <!--          <td class="text-right">-->
+    <!--            <a [routerLink]="'/article/list'" [queryParams]="{'cid':data.id}">文档</a>-->
+    <!--            <nz-divider nzType="vertical"></nz-divider>-->
+    <!--            <a [routerLink]="['/catalog/edit/0']" [queryParams]="{'cid':data.id}">子栏目</a>-->
+    <!--            <nz-divider nzType="vertical"></nz-divider>-->
+    <!--            <a [routerLink]="['/catalog/edit', data.id]">编辑</a>-->
+    <!--            <nz-divider nzType="vertical"></nz-divider>-->
+    <!--            <a (click)="del(data.id)">删除</a>-->
+    <!--          </td>-->
+    <!--        </tr>-->
+    <!--        <ng-template ngFor let-item [ngForOf]="data.catalogs">-->
+    <!--          <tr [nzExpand]="data.expand">-->
+    <!--            <td [nzShowExpand]="item.catalogs?.length > 0" [(nzExpand)]="item.expand"></td>-->
+    <!--            <td>{{item.id}}</td>-->
+    <!--            <td>{{item.name}}</td>-->
+    <!--            <td>{{item.createdAt | _date}}</td>-->
+    <!--            <td class="text-right">-->
+    <!--              <a [routerLink]="'/article/list'" [queryParams]="{'cid':item.id}">文档</a>-->
+    <!--              <nz-divider nzType="vertical"></nz-divider>-->
+    <!--              <a [routerLink]="['/catalog/edit/0']" [queryParams]="{'cid':item.id}">子栏目</a>-->
+    <!--              <nz-divider nzType="vertical"></nz-divider>-->
+    <!--              <a [routerLink]="['/catalog/edit', item.id]">编辑</a>-->
+    <!--              <nz-divider nzType="vertical"></nz-divider>-->
+    <!--              <a (click)="del(item.id)">删除</a>-->
+    <!--            </td>-->
+    <!--          </tr>-->
+    <!--        </ng-template>-->
+    <!--      </ng-template>-->
+    <!--      </tbody>-->
+    <!--    </nz-table>-->
+  </nz-card>
+</page-header-wrapper>
